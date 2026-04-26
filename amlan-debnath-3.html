@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Amlan Debnath — Author</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:ital,wght@0,400;1,400&family=Cinzel:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{width:100%;overflow-x:hidden;}
+body{font-family:'Source Serif 4',Georgia,serif;background:#f9f7f3;color:#1c1712;}
+a{text-decoration:none;color:inherit;}
+button{cursor:pointer;font-family:inherit;}
+img{max-width:100%;display:block;}
+.page{display:none;}.page.active{display:block;}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:999;background:#fff;border-bottom:2px solid #1c1712;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;}
+.nav-logo{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;cursor:pointer;}
+.nav-burger{background:none;border:none;display:flex;flex-direction:column;gap:5px;padding:4px;}
+.nav-burger span{display:block;width:24px;height:2px;background:#1c1712;}
+.nav-menu{display:none;position:fixed;top:60px;left:0;right:0;z-index:998;background:#fff;border-bottom:1px solid #e0d8cc;}
+.nav-menu.open{display:block;}
+.nav-menu span,.nav-menu a{display:block;padding:16px 20px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:#7a6f60;border-bottom:1px solid #f0ebe0;cursor:pointer;}
+.nav-menu span:hover,.nav-menu a:hover{color:#1c1712;}
+
+.pt{padding-top:60px;}
+.back{display:inline-flex;align-items:center;gap:6px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#7a6f60;background:none;border:none;padding:20px 20px 0;}
+
+/* BUTTONS */
+.btn-dark{display:block;width:100%;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#fff;background:#1c1712;border:none;padding:15px 20px;text-align:center;}
+.btn-outline{display:block;width:100%;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#1c1712;background:transparent;border:2px solid #1c1712;padding:13px 20px;text-align:center;}
+.btn-gold{display:inline-block;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#fff;background:#8b6310;border:none;padding:13px 24px;text-align:center;}
+.eyebrow{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:#8b6310;}
+
+/* HOME */
+.home-hero{padding:48px 20px 56px;border-bottom:1px solid #e0d8cc;}
+.hero-name{font-family:'Playfair Display',serif;font-size:56px;font-weight:700;line-height:1;margin:12px 0 16px;}
+.hero-name em{color:#8b6310;font-style:normal;display:block;}
+.hero-role{font-family:'Source Serif 4',serif;font-style:italic;font-size:17px;color:#7a6f60;margin-bottom:12px;}
+.hero-desc{font-size:16px;color:#7a6f60;line-height:1.8;margin-bottom:32px;}
+.hero-btns{display:flex;flex-direction:column;gap:12px;}
+.home-strip{padding:48px 20px;border-bottom:1px solid #e0d8cc;}
+.strip-title{font-family:'Playfair Display',serif;font-size:30px;font-weight:700;margin:10px 0 14px;line-height:1.2;}
+.strip-body{font-size:16px;color:#7a6f60;line-height:1.8;margin-bottom:28px;}
+.stats{margin-top:36px;border-top:1px solid #e0d8cc;}
+.stat{padding:24px 0;border-bottom:1px solid #e0d8cc;}
+.stat-num{font-family:'Playfair Display',serif;font-size:52px;font-weight:700;color:#1c1712;line-height:1;}
+.stat-label{font-family:'Source Serif 4',serif;font-style:italic;font-size:14px;color:#7a6f60;margin-top:4px;}
+.home-quote{padding:72px 20px;background:#1c1712;text-align:center;}
+.quote-text{font-family:'Playfair Display',serif;font-style:italic;font-size:22px;color:#fff;line-height:1.65;margin-bottom:16px;}
+.quote-attr{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:rgba(255,255,255,.35);}
+
+/* BOOKS */
+.books-header{padding:36px 20px;border-bottom:1px solid #e0d8cc;}
+.books-title{font-family:'Playfair Display',serif;font-size:44px;font-weight:700;margin:10px 0 8px;}
+.books-sub{font-family:'Source Serif 4',serif;font-style:italic;font-size:16px;color:#7a6f60;line-height:1.7;margin-bottom:20px;}
+.filter-bar{display:flex;overflow-x:auto;border-bottom:2px solid #e0d8cc;background:#fff;}
+.filt{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#7a6f60;background:none;border:none;border-bottom:3px solid transparent;padding:16px 20px;white-space:nowrap;flex-shrink:0;margin-bottom:-2px;}
+.filt.on{color:#1c1712;border-bottom-color:#1c1712;}
+.books-grid{padding:24px 20px;display:flex;flex-direction:column;gap:32px;}
+.bk-card{cursor:pointer;}
+.bk-cover{width:100%;aspect-ratio:2/3;background:#e8e2d6;border:1px solid #e0d8cc;overflow:hidden;margin-bottom:14px;position:relative;}
+.bk-cover img{width:100%;height:100%;object-fit:cover;}
+.bk-cover-ph{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;text-align:center;}
+.bk-ph-ico{font-size:32px;margin-bottom:10px;opacity:.3;}
+.bk-ph-num{font-family:'Cinzel',serif;font-size:8px;letter-spacing:.35em;color:#8b6310;margin-bottom:8px;}
+.bk-ph-tit{font-family:'Playfair Display',serif;font-size:16px;color:#3a3326;line-height:1.35;}
+.bk-series{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:#8b6310;margin-bottom:5px;}
+.bk-title-card{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#1c1712;margin-bottom:4px;}
+.bk-by{font-size:14px;color:#7a6f60;margin-bottom:6px;}
+.bk-badge{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.22em;text-transform:uppercase;padding:3px 10px;display:inline-block;margin-bottom:8px;}
+.badge-pub{color:#8b6310;border:1px solid rgba(139,99,16,.3);}
+.badge-soon{color:#7a6f60;border:1px solid #e0d8cc;}
+.bk-stars{color:#e5a000;font-size:13px;margin-bottom:4px;}
+.admin-card-btns{display:none;gap:8px;margin-top:10px;flex-wrap:wrap;}
+.admin-mode .admin-card-btns{display:flex;}
+
+/* DETAIL */
+.detail-cover{width:60%;max-width:220px;margin:0 auto 24px;}
+.detail-cover-wrap{aspect-ratio:2/3;background:#e8e2d6;border:1px solid #e0d8cc;overflow:hidden;position:relative;}
+.detail-cover-wrap img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;}
+.detail-cover-ph{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;text-align:center;}
+.detail-body{padding:0 20px 40px;}
+.detail-series{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.35em;text-transform:uppercase;color:#8b6310;margin-bottom:8px;}
+.detail-title{font-family:'Playfair Display',serif;font-size:30px;font-weight:700;color:#1c1712;line-height:1.15;margin-bottom:6px;}
+.detail-sub{font-family:'Source Serif 4',serif;font-style:italic;font-size:17px;color:#7a6f60;margin-bottom:10px;}
+.detail-by{font-size:14px;color:#3a3326;margin-bottom:12px;}
+.detail-stars{color:#e5a000;font-size:18px;letter-spacing:2px;margin-bottom:4px;}
+.detail-star-count{font-size:13px;color:#7a6f60;margin-bottom:16px;}
+.detail-sep{width:36px;height:2px;background:#8b6310;margin:16px 0;}
+.detail-desc{font-size:16px;color:#3a3326;line-height:1.85;margin-bottom:24px;}
+.detail-meta{border:1px solid #e0d8cc;margin-bottom:24px;}
+.meta-item{padding:14px 16px;border-bottom:1px solid #e0d8cc;}
+.meta-item:last-child{border-bottom:none;}
+.meta-label{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:#7a6f60;margin-bottom:4px;}
+.meta-val{font-size:15px;color:#1c1712;font-weight:500;}
+.detail-actions{display:flex;flex-direction:column;gap:10px;}
+
+/* REVIEWS */
+.reviews-section{padding:32px 20px 0;border-top:2px solid #1c1712;}
+.reviews-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;margin-bottom:24px;}
+.rs-summary{display:flex;align-items:flex-start;gap:24px;margin-bottom:32px;padding-bottom:28px;border-bottom:1px solid #e0d8cc;flex-wrap:wrap;}
+.rs-big{font-family:'Playfair Display',serif;font-size:64px;font-weight:700;line-height:1;}
+.rs-stars-big{color:#e5a000;font-size:20px;}
+.rs-count{font-size:13px;color:#7a6f60;margin-top:4px;}
+.rs-bars{flex:1;min-width:160px;}
+.rs-row{display:flex;align-items:center;gap:10px;margin-bottom:7px;}
+.rs-lbl{font-family:'Cinzel',serif;font-size:9px;color:#7a6f60;width:28px;text-align:right;flex-shrink:0;}
+.rs-track{flex:1;height:9px;background:#e8e2d6;}
+.rs-fill{height:100%;background:#e5a000;}
+.rs-n{font-size:11px;color:#7a6f60;width:20px;flex-shrink:0;}
+.write-review{background:#f2efe8;border:1px solid #e0d8cc;padding:24px;margin:28px 0;}
+.wr-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;margin-bottom:4px;}
+.wr-sub{font-family:'Source Serif 4',serif;font-style:italic;font-size:13px;color:#7a6f60;margin-bottom:18px;}
+.star-pick{display:flex;gap:6px;margin-bottom:16px;}
+.star-pick span{font-size:32px;cursor:pointer;color:#e0d8cc;transition:color .15s;user-select:none;-webkit-user-select:none;}
+.star-pick span.lit{color:#e5a000;}
+.wr-field{width:100%;background:#fff;border:1.5px solid #ccc;color:#1c1712;font-family:'Source Serif 4',serif;font-size:15px;padding:12px 14px;outline:none;margin-bottom:12px;}
+.wr-field:focus{border-color:#1c1712;}
+.wr-field::placeholder{color:#aaa;font-style:italic;}
+.wr-ta{resize:vertical;min-height:100px;}
+.wr-ok{display:none;padding:14px;background:#fff;border:1px solid rgba(139,99,16,.3);font-style:italic;color:#8b6310;text-align:center;font-size:15px;margin-top:12px;}
+.review-card{padding:24px 0;border-bottom:1px solid #e0d8cc;}
+.rc-name{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;margin-bottom:4px;}
+.rc-date{font-size:12px;color:#7a6f60;margin-bottom:6px;}
+.rc-stars{color:#e5a000;font-size:14px;margin-bottom:6px;}
+.rc-rtitle{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;margin-bottom:6px;}
+.rc-body{font-size:15px;color:#3a3326;line-height:1.75;}
+.rc-verified{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#8b6310;margin-top:8px;}
+.no-reviews{font-style:italic;color:#7a6f60;padding:24px 0;font-size:16px;}
+
+/* ABOUT */
+.about-hero-section{padding:48px 20px;border-bottom:1px solid #e0d8cc;}
+.about-photo{width:90px;height:90px;border-radius:50%;background:#e8e2d6;border:2px solid #ccc;overflow:hidden;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:32px;font-weight:700;color:#7a6f60;margin-bottom:24px;position:relative;}
+.about-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.about-name{font-family:'Playfair Display',serif;font-size:42px;font-weight:700;line-height:1.05;margin:10px 0 10px;}
+.about-role-txt{font-family:'Source Serif 4',serif;font-style:italic;font-size:16px;color:#7a6f60;margin-bottom:20px;}
+.about-bio{font-family:'Playfair Display',serif;font-size:19px;font-weight:400;color:#1c1712;line-height:1.7;margin-bottom:16px;}
+.about-bio em{color:#8b6310;font-style:italic;}
+.about-bio2{font-size:15px;color:#7a6f60;line-height:1.9;}
+.about-section{padding:36px 20px;border-bottom:1px solid #e0d8cc;}
+.about-section-title{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:#8b6310;margin-bottom:18px;}
+.about-section-text{font-size:15px;color:#7a6f60;line-height:1.9;}
+.about-section-text p{margin-bottom:14px;}
+.about-section-text em{color:#1c1712;font-style:italic;}
+.about-links-row{padding:28px 20px;display:flex;flex-direction:column;gap:14px;border-bottom:1px solid #e0d8cc;}
+.alink{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:#7a6f60;border-bottom:1px solid transparent;padding-bottom:2px;cursor:pointer;display:inline-block;}
+.alink:hover{color:#8b6310;border-color:#c9a84c;}
+
+/* FEEDBACK */
+.feedback-page{padding:36px 20px 60px;}
+.fb-title{font-family:'Playfair Display',serif;font-size:40px;font-weight:700;margin:10px 0 12px;}
+.fb-sub{font-family:'Source Serif 4',serif;font-style:italic;font-size:17px;color:#7a6f60;line-height:1.75;margin-bottom:36px;padding-bottom:32px;border-bottom:1px solid #e0d8cc;}
+.fb-field{width:100%;background:#fff;border:1.5px solid #ccc;color:#1c1712;font-family:'Source Serif 4',serif;font-size:15px;padding:12px 14px;outline:none;margin-bottom:14px;}
+.fb-field:focus{border-color:#1c1712;}
+.fb-field::placeholder{color:#aaa;font-style:italic;}
+.fb-ta{resize:vertical;min-height:130px;}
+.fb-ok{display:none;padding:18px;background:#f2efe8;border:1px solid rgba(139,99,16,.3);font-style:italic;color:#8b6310;text-align:center;font-size:16px;margin-top:14px;}
+.fl-label{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.26em;text-transform:uppercase;color:#7a6f60;display:block;margin-bottom:6px;}
+
+/* FOOTER */
+.site-footer{background:#1c1712;color:#fff;padding:48px 20px 32px;}
+.foot-brand{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;margin-bottom:8px;}
+.foot-tag{font-family:'Source Serif 4',serif;font-style:italic;font-size:14px;color:rgba(255,255,255,.45);margin-bottom:36px;}
+.foot-cols{display:flex;flex-wrap:wrap;gap:32px;margin-bottom:36px;}
+.foot-col-title{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.35em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:14px;}
+.foot-link{display:block;font-size:14px;color:rgba(255,255,255,.55);margin-bottom:10px;cursor:pointer;}
+.foot-link:hover{color:#fff;}
+a.foot-link{color:rgba(255,255,255,.55);}
+.foot-copy{border-top:1px solid rgba(255,255,255,.08);padding-top:24px;font-family:'Cinzel',serif;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.2);}
+
+/* MODALS */
+.overlay{display:none;position:fixed;inset:0;z-index:9000;background:rgba(28,23,18,.6);align-items:center;justify-content:center;padding:16px;}
+.overlay.open{display:flex;}
+.modal{background:#fff;width:100%;max-width:560px;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.3);}
+.modal-hd{padding:24px 20px 18px;border-bottom:1px solid #e0d8cc;display:flex;align-items:flex-start;justify-content:space-between;position:sticky;top:0;background:#fff;z-index:10;}
+.modal-hd-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#1c1712;margin-bottom:3px;}
+.modal-hd-sub{font-family:'Source Serif 4',serif;font-style:italic;font-size:13px;color:#7a6f60;}
+.modal-x{background:none;border:none;font-size:22px;color:#7a6f60;padding:4px;flex-shrink:0;margin-left:10px;}
+.modal-body{padding:20px;}
+.fg{margin-bottom:16px;}
+.fl{display:block;font-family:'Cinzel',serif;font-size:9px;letter-spacing:.26em;text-transform:uppercase;color:#7a6f60;margin-bottom:6px;}
+.fi,.fta,.fse{width:100%;background:#f9f7f3;border:1.5px solid #ccc;color:#1c1712;font-family:'Source Serif 4',serif;font-size:15px;padding:11px 13px;outline:none;}
+.fi:focus,.fta:focus,.fse:focus{border-color:#1c1712;background:#fff;}
+.fi::placeholder,.fta::placeholder{color:#aaa;font-style:italic;}
+.fta{resize:vertical;min-height:90px;}
+.fse option{background:#fff;}
+.fsub{width:100%;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#fff;background:#1c1712;border:none;padding:15px;cursor:pointer;margin-top:6px;}
+.img-drop{border:2px dashed #ccc;background:#f9f7f3;padding:24px;text-align:center;position:relative;cursor:pointer;margin-bottom:4px;}
+.img-drop input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+.idu{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#7a6f60;}
+.ids{font-size:12px;color:#7a6f60;font-style:italic;margin-top:3px;}
+.img-prev{display:none;margin-top:10px;position:relative;}
+.img-prev img{width:100%;max-height:160px;object-fit:contain;border:1px solid #e0d8cc;}
+.img-rm{position:absolute;top:6px;right:6px;background:rgba(28,23,18,.75);color:#fff;border:none;padding:3px 9px;font-size:11px;cursor:pointer;}
+.pw-box{background:#fff;width:100%;max-width:360px;padding:36px 24px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.3);}
+.pw-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;margin-bottom:6px;}
+.pw-sub{font-style:italic;font-size:14px;color:#7a6f60;margin-bottom:20px;}
+.pw-err{font-size:13px;color:#c0392b;margin-top:10px;min-height:18px;}
+.del-box{background:#fff;width:100%;max-width:360px;padding:36px 24px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.3);}
+.del-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;margin-bottom:8px;}
+.del-sub{font-style:italic;font-size:14px;color:#7a6f60;margin-bottom:24px;line-height:1.6;}
+.del-acts{display:flex;gap:10px;justify-content:center;}
+.btn-so{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#1c1712;background:transparent;border:1px solid #ccc;padding:9px 16px;cursor:pointer;}
+.btn-sd{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#fff;background:#1c1712;border:none;padding:9px 16px;cursor:pointer;}
+.btn-sr{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#fff;background:#c0392b;border:none;padding:9px 16px;cursor:pointer;}
+
+/* LOADING */
+.loading{text-align:center;padding:60px 20px;font-style:italic;color:#7a6f60;font-size:16px;}
+
+@media(min-width:700px){
+  .books-grid{display:grid;grid-template-columns:repeat(2,1fr);}
+  .hero-btns{flex-direction:row;}
+  .btn-dark,.btn-outline{width:auto;display:inline-block;}
+}
+@media(min-width:1000px){
+  .books-grid{grid-template-columns:repeat(3,1fr);}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<div class="nav">
+  <span class="nav-logo" onclick="go('home')">Amlan Debnath</span>
+  <button class="nav-burger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</div>
+<div class="nav-menu" id="nav-menu">
+  <span onclick="go('home');toggleMenu()">Home</span>
+  <span onclick="go('books');toggleMenu()">Books</span>
+  <span onclick="go('about');toggleMenu()">About</span>
+  <span onclick="go('feedback');toggleMenu()">Feedback</span>
+  <a href="https://www.instagram.com/amlandebnath.writes" target="_blank">Instagram</a>
+</div>
+
+<!-- HOME -->
+<div class="page active pt" id="page-home">
+  <div class="home-hero">
+    <p class="eyebrow">Author · West Bengal · India</p>
+    <h1 class="hero-name"><span id="h-fname">Amlan</span><em id="h-lname">Debnath</em></h1>
+    <p class="hero-role" id="h-role">Literary Historical Fiction</p>
+    <p class="hero-desc" id="h-desc">Literary historical fiction rooted in Bengal — where the Bhagirathi flows and forgotten histories find their voice again.</p>
+    <div class="hero-btns">
+      <button class="btn-dark" onclick="go('books')">Browse All Books</button>
+      <button class="btn-outline" onclick="go('about')">About the Author</button>
+    </div>
+  </div>
+  <div class="home-strip">
+    <p class="eyebrow">The Author</p>
+    <h2 class="strip-title" id="h-strip-title">Stories from the Banks of the Bhagirathi</h2>
+    <p class="strip-body" id="h-strip-body">Amlan Debnath writes at the intersection of history, mystery, and romance.</p>
+    <button class="btn-outline" onclick="go('about')" style="max-width:280px;">Meet the Author</button>
+    <div class="stats">
+      <div class="stat"><div class="stat-num" id="stat-pub">—</div><div class="stat-label">Books Published</div></div>
+      <div class="stat"><div class="stat-num">1</div><div class="stat-label">Ongoing Trilogy</div></div>
+      <div class="stat"><div class="stat-num">1757</div><div class="stat-label">The Year at the Heart of It All</div></div>
+    </div>
+  </div>
+  <div class="home-quote">
+    <p class="quote-text" id="h-pq">"Every map is a confession — of what we saw, what we feared, and what we chose to leave unnamed."</p>
+    <p class="quote-attr" id="h-pq-attr">The Cartographer's Confession</p>
+  </div>
+  <div class="site-footer">
+    <div class="foot-brand" id="foot-brand">Amlan Debnath</div>
+    <div class="foot-tag" id="foot-tag">Storyteller of Bengal</div>
+    <div class="foot-cols">
+      <div><div class="foot-col-title">Navigate</div>
+        <span class="foot-link" onclick="go('home')">Home</span>
+        <span class="foot-link" onclick="go('books')">Books</span>
+        <span class="foot-link" onclick="go('about')">About</span>
+        <span class="foot-link" onclick="go('feedback')">Feedback</span>
+      </div>
+      <div><div class="foot-col-title">Connect</div>
+        <a class="foot-link" href="https://www.instagram.com/amlandebnath.writes" target="_blank">Instagram</a>
+        <a class="foot-link" id="foot-amazon" href="https://www.amazon.in" target="_blank">Amazon Page</a>
+      </div>
+    </div>
+    <div class="foot-copy">© 2025 <span id="foot-copy-name">Amlan Debnath</span>. All rights reserved.</div>
+  </div>
+</div>
+
+<!-- BOOKS -->
+<div class="page pt" id="page-books">
+  <button class="back" onclick="go('home')"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7L9 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg> Home</button>
+  <div class="books-header">
+    <p class="eyebrow">The Collection</p>
+    <h1 class="books-title">All Books</h1>
+    <p class="books-sub">Historical fiction, mystery, and romance rooted in Bengal's most transformative era.</p>
+    <button class="btn-dark admin-only" onclick="openAdd()" style="display:none;max-width:220px;margin-top:8px;">+ Add New Book</button>
+  </div>
+  <div class="filter-bar">
+    <button class="filt on" onclick="filterBooks('all',this)">All</button>
+    <button class="filt" onclick="filterBooks('published',this)">Published</button>
+    <button class="filt" onclick="filterBooks('forthcoming',this)">Forthcoming</button>
+  </div>
+  <div class="books-grid" id="books-grid"><div class="loading">Loading books...</div></div>
+  <div class="site-footer" style="margin-top:0;">
+    <div class="foot-brand">Amlan Debnath</div><div class="foot-tag">Storyteller of Bengal</div>
+    <div class="foot-cols"><div><div class="foot-col-title">Navigate</div><span class="foot-link" onclick="go('home')">Home</span><span class="foot-link" onclick="go('books')">Books</span><span class="foot-link" onclick="go('about')">About</span></div></div>
+    <div class="foot-copy">© 2025 Amlan Debnath. All rights reserved.</div>
+  </div>
+</div>
+
+<!-- DETAIL -->
+<div class="page pt" id="page-detail">
+  <button class="back" onclick="go('books')"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7L9 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg> All Books</button>
+  <div style="padding:8px 20px 0;display:none;" class="admin-only" id="bd-edit-wrap">
+    <button class="btn-so" onclick="openEditCurrent()">Edit This Book</button>
+  </div>
+  <div class="detail-cover">
+    <div class="detail-cover-wrap">
+      <div class="detail-cover-ph" id="bd-ph"><div class="bk-ph-ico">📖</div><div class="bk-ph-tit" id="bd-ph-tit">—</div></div>
+      <img id="bd-img" src="" alt="" style="display:none;">
+    </div>
+  </div>
+  <div class="detail-body">
+    <div class="detail-series" id="bd-series"></div>
+    <h1 class="detail-title" id="bd-title">—</h1>
+    <p class="detail-sub" id="bd-sub"></p>
+    <p class="detail-by">by <strong>Amlan Debnath</strong></p>
+    <div class="detail-stars" id="bd-stars">☆☆☆☆☆</div>
+    <div class="detail-star-count" id="bd-star-count">No reviews yet</div>
+    <div style="margin:12px 0;"><span class="bk-badge" id="bd-badge">Available Now</span></div>
+    <div class="detail-sep"></div>
+    <p class="detail-desc" id="bd-desc"></p>
+    <div class="detail-meta" id="bd-meta"></div>
+    <div class="detail-actions" id="bd-actions"></div>
+  </div>
+  <div class="reviews-section">
+    <div class="reviews-title">Customer Reviews</div>
+    <div class="rs-summary">
+      <div><div class="rs-big" id="rs-avg">—</div><div class="rs-stars-big" id="rs-stars">☆☆☆☆☆</div><div class="rs-count" id="rs-count">No reviews yet</div></div>
+      <div class="rs-bars" id="rs-bars"></div>
+    </div>
+    <div class="write-review">
+      <div class="wr-title">Write a Review</div>
+      <div class="wr-sub">Share your experience with other readers</div>
+      <div class="star-pick" id="star-pick">
+        <span onclick="setStar(1)">★</span><span onclick="setStar(2)">★</span>
+        <span onclick="setStar(3)">★</span><span onclick="setStar(4)">★</span><span onclick="setStar(5)">★</span>
+      </div>
+      <input class="wr-field" id="wr-name" placeholder="Your name">
+      <input class="wr-field" id="wr-rtitle" placeholder="Review title">
+      <textarea class="wr-field wr-ta" id="wr-body" placeholder="Share your thoughts..."></textarea>
+      <button class="btn-dark" onclick="submitReview()" style="max-width:220px;">Submit Review</button>
+      <div class="wr-ok" id="wr-ok">✓ Thank you for your review!</div>
+    </div>
+    <div id="review-list" style="padding-bottom:40px;"></div>
+  </div>
+  <div class="site-footer"><div class="foot-brand">Amlan Debnath</div><div class="foot-tag">Storyteller of Bengal</div><div class="foot-cols"><div><div class="foot-col-title">Navigate</div><span class="foot-link" onclick="go('home')">Home</span><span class="foot-link" onclick="go('books')">Books</span></div></div><div class="foot-copy">© 2025 Amlan Debnath. All rights reserved.</div></div>
+</div>
+
+<!-- ABOUT -->
+<div class="page pt" id="page-about">
+  <button class="back" onclick="go('home')"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7L9 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg> Home</button>
+  <div class="about-hero-section">
+    <div class="about-photo"><span id="about-init">A</span><img id="about-photo-img" src="" alt="" style="display:none;"></div>
+    <p class="eyebrow">The Author</p>
+    <h1 class="about-name" id="about-name">Amlan<br>Debnath</h1>
+    <p class="about-role-txt" id="about-role">Literary Historical Fiction · West Bengal, India</p>
+    <div class="admin-only" id="about-admin-btns" style="display:none;gap:10px;flex-wrap:wrap;margin-top:16px;margin-bottom:20px;">
+      <button class="btn-so" onclick="openProfile()">Edit Profile</button>
+      <button class="btn-sr" onclick="logout()">Log Out</button>
+    </div>
+    <p class="about-bio" id="about-bio1" style="margin-top:24px;">Born and rooted in <em>West Bengal</em>, Amlan Debnath writes literary historical fiction that breathes life into Bengal's layered past.</p>
+    <p class="about-bio2" id="about-bio2">His prose weaves romance, mystery, and history into a tapestry of place and memory.</p>
+  </div>
+  <div class="about-section"><div class="about-section-title">The Writing</div><div class="about-section-text" id="about-writing"><p>Amlan's fiction is anchored in the <em>Bhagirathi river</em> and the <em>Battle of Plassey (1757)</em>.</p><p>His debut trilogy, <em>The Cartographer's Beloved</em>, blends mystery with literary romance and the Bengali storytelling tradition.</p></div></div>
+  <div class="about-section"><div class="about-section-title">Influences &amp; Tradition</div><div class="about-section-text" id="about-influences"><p>Amlan draws from the sharp observational intelligence of <em>Feluda</em> and the romantic sweep of classic Bengali fiction.</p><p>The work is as much about <em>place</em> as about people: Bengal as a living character, its rivers as witnesses.</p></div></div>
+  <div class="about-links-row">
+    <a class="alink" id="about-amazon-link" href="https://www.amazon.in" target="_blank">Amazon Author Page</a>
+    <a class="alink" id="about-ig-link" href="https://www.instagram.com/amlandebnath.writes" target="_blank">@amlandebnath.writes</a>
+    <span class="alink" onclick="go('books')">Browse All Books</span>
+  </div>
+  <div class="site-footer"><div class="foot-brand">Amlan Debnath</div><div class="foot-tag">Storyteller of Bengal</div><div class="foot-cols"><div><div class="foot-col-title">Navigate</div><span class="foot-link" onclick="go('home')">Home</span><span class="foot-link" onclick="go('books')">Books</span><span class="foot-link" onclick="go('about')">About</span></div></div><div class="foot-copy">© 2025 Amlan Debnath. All rights reserved.</div></div>
+</div>
+
+<!-- FEEDBACK -->
+<div class="page pt" id="page-feedback">
+  <button class="back" onclick="go('home')"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7L9 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg> Home</button>
+  <div class="feedback-page">
+    <p class="eyebrow">Reader Feedback</p>
+    <h1 class="fb-title">Share Your Thoughts</h1>
+    <p class="fb-sub">Your feedback helps the work grow. Whether it's a note, a question, or a suggestion — I'd love to hear from you.</p>
+    <label class="fl-label">Your Name</label><input class="fb-field" id="fb-name" placeholder="e.g. Rahul Das">
+    <label class="fl-label">Email (optional)</label><input class="fb-field" id="fb-email" placeholder="your@email.com">
+    <label class="fl-label">Subject</label><input class="fb-field" id="fb-subject" placeholder="e.g. Loved the book...">
+    <label class="fl-label">Message</label><textarea class="fb-field fb-ta" id="fb-msg" placeholder="Write your message here..."></textarea>
+    <button class="btn-dark" onclick="submitFeedback()" style="max-width:220px;">Send Feedback</button>
+    <div class="fb-ok" id="fb-ok">✓ Thank you — your message has been received.</div>
+  </div>
+  <div class="site-footer"><div class="foot-brand">Amlan Debnath</div><div class="foot-tag">Storyteller of Bengal</div><div class="foot-cols"><div><div class="foot-col-title">Navigate</div><span class="foot-link" onclick="go('home')">Home</span><span class="foot-link" onclick="go('books')">Books</span><span class="foot-link" onclick="go('about')">About</span><span class="foot-link" onclick="go('feedback')">Feedback</span></div></div><div class="foot-copy">© 2025 Amlan Debnath. All rights reserved.</div></div>
+</div>
+
+<!-- PASSWORD MODAL -->
+<div class="overlay" id="pw-overlay" onclick="oClick(event,'pw-overlay')">
+  <div class="pw-box">
+    <div class="pw-title">Admin Access</div>
+    <div class="pw-sub">Enter your password to edit the site</div>
+    <input class="fi" id="pw-input" type="password" placeholder="Password" style="text-align:center;margin-bottom:12px;" onkeydown="if(event.key==='Enter')checkPw()">
+    <button class="fsub" onclick="checkPw()">Login</button>
+    <div class="pw-err" id="pw-err"></div>
+  </div>
+</div>
+
+<!-- BOOK MODAL -->
+<div class="overlay" id="bk-overlay" onclick="oClick(event,'bk-overlay')">
+  <div class="modal">
+    <div class="modal-hd">
+      <div><div class="modal-hd-title" id="bk-modal-t">Add New Book</div><div class="modal-hd-sub" id="bk-modal-s">Fill in the details</div></div>
+      <button class="modal-x" onclick="closeAll()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="fg"><label class="fl">Cover Image</label>
+        <div class="img-drop" ondragover="event.preventDefault()" ondrop="bkDrop(event)">
+          <input type="file" id="bk-file" accept="image/*" onchange="bkFile(this.files[0])">
+          <div class="idu">📷 Click or drag your book cover</div>
+          <div class="ids">Your actual cover image — JPG, PNG, WEBP</div>
+        </div>
+        <div class="img-prev" id="bk-prev"><img id="bk-prev-img" src="" alt=""><button class="img-rm" onclick="bkRmCover()">✕</button></div>
+      </div>
+      <div class="fg"><label class="fl">Series / Book Label</label><input class="fi" id="bk-num" placeholder="e.g. Book One · The Trilogy"></div>
+      <div class="fg"><label class="fl">Title *</label><input class="fi" id="bk-title" placeholder="e.g. The Cartographer's Beloved"></div>
+      <div class="fg"><label class="fl">Subtitle</label><input class="fi" id="bk-sub-inp" placeholder="A short evocative line"></div>
+      <div class="fg"><label class="fl">Description</label><textarea class="fta" id="bk-desc" style="min-height:110px" placeholder="Full synopsis..."></textarea></div>
+      <div class="fg"><label class="fl">Genre</label><input class="fi" id="bk-genre" placeholder="Historical Fiction"></div>
+      <div class="fg"><label class="fl">Year</label><input class="fi" id="bk-year" placeholder="2025"></div>
+      <div class="fg"><label class="fl">Status</label><select class="fse" id="bk-status"><option value="published">Published</option><option value="forthcoming">Forthcoming</option></select></div>
+      <div class="fg"><label class="fl">Publisher</label><input class="fi" id="bk-publisher" placeholder="Amazon KDP"></div>
+      <div class="fg"><label class="fl">Amazon / Buy Link</label><input class="fi" id="bk-link" placeholder="https://amazon.in/..."></div>
+      <button class="fsub" onclick="saveBook()">Save Book</button>
+    </div>
+  </div>
+</div>
+
+<!-- PROFILE MODAL -->
+<div class="overlay" id="pr-overlay" onclick="oClick(event,'pr-overlay')">
+  <div class="modal">
+    <div class="modal-hd">
+      <div><div class="modal-hd-title">Edit Profile</div><div class="modal-hd-sub">Update your author information</div></div>
+      <button class="modal-x" onclick="closeAll()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="fg"><label class="fl">Profile Photo</label>
+        <div class="img-drop" ondragover="event.preventDefault()" ondrop="prDrop(event)">
+          <input type="file" id="pr-file" accept="image/*" onchange="prFile(this.files[0])">
+          <div class="idu">📷 Click or drag your photo</div>
+        </div>
+        <div class="img-prev" id="pr-prev"><img id="pr-prev-img" src="" alt=""><button class="img-rm" onclick="prRm()">✕</button></div>
+      </div>
+      <div class="fg"><label class="fl">First Name</label><input class="fi" id="pr-fname" placeholder="Amlan"></div>
+      <div class="fg"><label class="fl">Last Name</label><input class="fi" id="pr-lname" placeholder="Debnath"></div>
+      <div class="fg"><label class="fl">Role / Tagline</label><input class="fi" id="pr-role" placeholder="Literary Historical Fiction · West Bengal, India"></div>
+      <div class="fg"><label class="fl">Footer Tagline</label><input class="fi" id="pr-ftag" placeholder="Storyteller of Bengal"></div>
+      <div class="fg"><label class="fl">Hero Description</label><textarea class="fta" id="pr-desc" placeholder="Home page intro..."></textarea></div>
+      <div class="fg"><label class="fl">Bio — First Paragraph</label><textarea class="fta" id="pr-bio1" placeholder="Wrap italic words in *asterisks*"></textarea></div>
+      <div class="fg"><label class="fl">Bio — Second Paragraph</label><textarea class="fta" id="pr-bio2"></textarea></div>
+      <div class="fg"><label class="fl">Home Strip Title</label><input class="fi" id="pr-strip-t"></div>
+      <div class="fg"><label class="fl">Home Strip Body</label><textarea class="fta" id="pr-strip-b"></textarea></div>
+      <div class="fg"><label class="fl">Pull Quote</label><textarea class="fta" id="pr-pq"></textarea></div>
+      <div class="fg"><label class="fl">Pull Quote Attribution</label><input class="fi" id="pr-pq-attr"></div>
+      <div class="fg"><label class="fl">Amazon URL</label><input class="fi" id="pr-amazon"></div>
+      <div class="fg"><label class="fl">Instagram URL</label><input class="fi" id="pr-ig"></div>
+      <button class="fsub" onclick="saveProfile()">Save Profile</button>
+    </div>
+  </div>
+</div>
+
+<!-- DELETE MODAL -->
+<div class="overlay" id="del-overlay" onclick="oClick(event,'del-overlay')">
+  <div class="del-box">
+    <div class="del-title">Remove this book?</div>
+    <div class="del-sub" id="del-sub">This will permanently remove the book.</div>
+    <div class="del-acts"><button class="btn-so" onclick="closeAll()">Cancel</button><button class="btn-sr" onclick="confirmDel()">Remove</button></div>
+  </div>
+</div>
+
+<script>
+/* ══ SUPABASE CONFIG ══ */
+const SB_URL = 'https://vqaovgguprxfdtodtkkc.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZxYW92Z2d1cHJ4ZmR0b2R0a2tjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcxODQ5NjMsImV4cCI6MjA5Mjc2MDk2M30.H5IPgCKXKC6qKFFP6_KPu-vpoLrggZ7LQEQtaz1fcqk';
+const PASS = 'amlan1757';
+
+async function sbGet(table, params=''){
+  const r = await fetch(`${SB_URL}/rest/v1/${table}?${params}`, {headers:{'apikey':SB_KEY,'Authorization':`Bearer ${SB_KEY}`}});
+  return r.json();
+}
+async function sbPost(table, body){
+  const r = await fetch(`${SB_URL}/rest/v1/${table}`, {method:'POST',headers:{'apikey':SB_KEY,'Authorization':`Bearer ${SB_KEY}`,'Content-Type':'application/json','Prefer':'return=representation'},body:JSON.stringify(body)});
+  return r.json();
+}
+async function sbPatch(table, id, body){
+  const r = await fetch(`${SB_URL}/rest/v1/${table}?id=eq.${id}`, {method:'PATCH',headers:{'apikey':SB_KEY,'Authorization':`Bearer ${SB_KEY}`,'Content-Type':'application/json','Prefer':'return=representation'},body:JSON.stringify(body)});
+  return r.json();
+}
+async function sbDelete(table, id){
+  await fetch(`${SB_URL}/rest/v1/${table}?id=eq.${id}`, {method:'DELETE',headers:{'apikey':SB_KEY,'Authorization':`Bearer ${SB_KEY}`}});
+}
+
+/* ══ STATE ══ */
+let isAdmin = false;
+let bkFilter = 'all';
+let allBooks = [];
+let profile = {};
+let curBookId = null;
+let editBookId = null;
+let delBookId = null;
+let pickedStars = 0;
+let pendingCover = null;
+let pendingPhoto = null;
+
+/* ══ ROUTER ══ */
+function go(page, bookId){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+page).classList.add('active');
+  window.scrollTo(0,0);
+  document.getElementById('nav-menu').classList.remove('open');
+  if(page==='home') renderHome();
+  if(page==='books') renderBooks();
+  if(page==='about') renderAbout();
+  if(page==='detail' && bookId!=null) openDetail(bookId);
+}
+function toggleMenu(){document.getElementById('nav-menu').classList.toggle('open');}
+
+/* ══ LOAD DATA ══ */
+async function loadAll(){
+  const [pr, bks] = await Promise.all([
+    sbGet('profile','id=eq.1'),
+    sbGet('books','order=sort_order.asc')
+  ]);
+  profile = pr[0] || {};
+  allBooks = bks || [];
+  renderHome();
+  // update stat
+  const el=document.getElementById('stat-pub');
+  if(el) el.textContent = allBooks.filter(b=>b.status==='published').length;
+}
+
+/* ══ HOME ══ */
+function renderHome(){
+  const p = profile;
+  set('h-fname', p.fname||'Amlan');
+  set('h-lname', p.lname||'Debnath');
+  set('h-role', p.role||'');
+  set('h-desc', p.description||'');
+  set('h-strip-title', p.strip_title||'');
+  set('h-strip-body', p.strip_body||'');
+  set('h-pq', `"${p.pq||''}"`);
+  set('h-pq-attr', p.pq_attr||'');
+  set('foot-brand', `${p.fname||'Amlan'} ${p.lname||'Debnath'}`);
+  set('foot-tag', p.ftag||'');
+  set('foot-copy-name', `${p.fname||'Amlan'} ${p.lname||'Debnath'}`);
+  const am=document.getElementById('foot-amazon');if(am)am.href=p.amazon||'#';
+  const el=document.getElementById('stat-pub');
+  if(el) el.textContent = allBooks.filter(b=>b.status==='published').length;
+}
+
+/* ══ BOOKS ══ */
+async function renderBooks(){
+  const grid=document.getElementById('books-grid');
+  if(!grid) return;
+  if(!allBooks.length) allBooks = await sbGet('books','order=sort_order.asc');
+  document.querySelectorAll('.admin-only').forEach(el=>el.style.display=isAdmin?'':'none');
+  const list = bkFilter==='all' ? allBooks : allBooks.filter(b=>b.status===bkFilter);
+  if(!list.length){grid.innerHTML='<p style="padding:40px 20px;font-style:italic;color:#7a6f60;">No books in this category yet.</p>';return;}
+  // get review counts
+  const ids = list.map(b=>b.id);
+  let revCounts = {};
+  try{
+    const revs = await sbGet('reviews',`book_id=in.(${ids.join(',')})&select=book_id,stars`);
+    revs.forEach(r=>{
+      if(!revCounts[r.book_id]) revCounts[r.book_id]={count:0,total:0};
+      revCounts[r.book_id].count++;
+      revCounts[r.book_id].total+=r.stars;
+    });
+  }catch(e){}
+
+  grid.innerHTML = list.map(b=>{
+    const rc = revCounts[b.id];
+    const avgN = rc ? rc.total/rc.count : 0;
+    const starsHtml = rc ? `<div class="bk-stars">${starsStr(Math.round(avgN))} (${rc.count})</div>` : '';
+    const coverHtml = b.cover
+      ? `<img src="${b.cover}" alt="${b.title}">`
+      : `<div class="bk-cover-ph"><div class="bk-ph-ico">📖</div><div class="bk-ph-num">${b.num||''}</div><div class="bk-ph-tit">${b.title}</div></div>`;
+    const adminHtml = isAdmin
+      ? `<div class="admin-card-btns admin-mode"><button class="btn-sd" onclick="event.stopPropagation();openEditId(${b.id})">Edit</button><button class="btn-sr" onclick="event.stopPropagation();askDel(${b.id})">Remove</button></div>` : '';
+    return `<div class="bk-card" onclick="go('detail',${b.id})">
+      <div class="bk-cover">${coverHtml}</div>
+      <div class="bk-series">${b.num||''}</div>
+      <div class="bk-title-card">${b.title}</div>
+      <div class="bk-by">by Amlan Debnath</div>
+      ${starsHtml}
+      <span class="bk-badge ${b.status==='published'?'badge-pub':'badge-soon'}">${b.status==='published'?'Available Now':'Forthcoming'}</span>
+      ${adminHtml}
+    </div>`;
+  }).join('');
+}
+
+function filterBooks(f,btn){
+  bkFilter=f;
+  document.querySelectorAll('.filt').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  renderBooks();
+}
+
+/* ══ DETAIL ══ */
+async function openDetail(id){
+  curBookId = id;
+  const b = allBooks.find(x=>x.id===id);
+  if(!b) return;
+  const img=document.getElementById('bd-img');
+  const ph=document.getElementById('bd-ph');
+  if(b.cover){img.src=b.cover;img.style.display='block';ph.style.display='none';}
+  else{img.style.display='none';ph.style.display='flex';}
+  set('bd-ph-tit',b.title);
+  set('bd-series',b.num||'');
+  set('bd-title',b.title);
+  set('bd-sub',b.sub||'');
+  set('bd-desc',b.description||'');
+  const badge=document.getElementById('bd-badge');
+  badge.textContent=b.status==='published'?'Available Now':'Forthcoming';
+  badge.className='bk-badge '+(b.status==='published'?'badge-pub':'badge-soon');
+  const meta=[];
+  if(b.genre) meta.push({l:'Genre',v:b.genre});
+  if(b.year) meta.push({l:'Year',v:b.year});
+  if(b.publisher) meta.push({l:'Publisher',v:b.publisher});
+  document.getElementById('bd-meta').innerHTML=meta.map(m=>`<div class="meta-item"><div class="meta-label">${m.l}</div><div class="meta-val">${m.v}</div></div>`).join('');
+  document.getElementById('bd-actions').innerHTML=
+    (b.link?`<a href="${b.link}" target="_blank" class="btn-gold" style="margin-bottom:10px;">Buy on Amazon</a>`:'')
+    +`<button class="btn-outline" onclick="go('books')" style="max-width:220px;margin-top:4px;">← Back to Books</button>`;
+  const ew=document.getElementById('bd-edit-wrap');
+  if(ew) ew.style.display=isAdmin?'block':'none';
+  pickedStars=0; updateStarPick();
+  document.getElementById('wr-name').value='';
+  document.getElementById('wr-rtitle').value='';
+  document.getElementById('wr-body').value='';
+  document.getElementById('wr-ok').style.display='none';
+  await renderReviews(id);
+}
+
+/* ══ REVIEWS ══ */
+function starsStr(n){n=Math.max(0,Math.min(5,Math.round(n)));return '★'.repeat(n)+'☆'.repeat(5-n);}
+
+async function renderReviews(id){
+  const revs = await sbGet('reviews',`book_id=eq.${id}&order=created_at.desc`);
+  const a = revs.length ? revs.reduce((s,r)=>s+r.stars,0)/revs.length : 0;
+  set('rs-avg', revs.length?a.toFixed(1):'—');
+  set('rs-stars', starsStr(Math.round(a)));
+  set('rs-count', revs.length?`${revs.length} review${revs.length>1?'s':''}`:' No reviews yet');
+  set('bd-stars', starsStr(Math.round(a)));
+  set('bd-star-count', revs.length?`${a.toFixed(1)} out of 5 · ${revs.length} review${revs.length>1?'s':''}`:' No reviews yet');
+  const bars=document.getElementById('rs-bars');
+  if(bars) bars.innerHTML=[5,4,3,2,1].map(s=>{
+    const cnt=revs.filter(r=>r.stars===s).length;
+    const pct=revs.length?Math.round(cnt/revs.length*100):0;
+    return `<div class="rs-row"><div class="rs-lbl">${s}★</div><div class="rs-track"><div class="rs-fill" style="width:${pct}%"></div></div><div class="rs-n">${cnt}</div></div>`;
+  }).join('');
+  const list=document.getElementById('review-list');
+  if(!list) return;
+  if(!revs.length){list.innerHTML='<p class="no-reviews">No reviews yet. Be the first!</p>';return;}
+  list.innerHTML=revs.map(r=>`<div class="review-card">
+    <div class="rc-name">${esc(r.name)}</div>
+    <div class="rc-date">${new Date(r.created_at).toLocaleDateString('en-IN',{year:'numeric',month:'long',day:'numeric'})}</div>
+    <div class="rc-stars">${starsStr(r.stars)}</div>
+    <div class="rc-rtitle">${esc(r.rtitle||'')}</div>
+    <div class="rc-body">${esc(r.body)}</div>
+    <div class="rc-verified">✓ Verified Reader</div>
+  </div>`).join('');
+}
+
+function setStar(n){pickedStars=n;updateStarPick();}
+function updateStarPick(){document.querySelectorAll('#star-pick span').forEach((s,i)=>s.classList.toggle('lit',i<pickedStars));}
+document.querySelectorAll('#star-pick span').forEach((s,i)=>{
+  s.addEventListener('touchstart',()=>setStar(i+1),{passive:true});
+  s.addEventListener('mouseover',()=>document.querySelectorAll('#star-pick span').forEach((x,j)=>x.classList.toggle('lit',j<=i)));
+  s.addEventListener('mouseout',()=>updateStarPick());
+});
+
+async function submitReview(){
+  const name=document.getElementById('wr-name').value.trim();
+  const rtitle=document.getElementById('wr-rtitle').value.trim();
+  const body=document.getElementById('wr-body').value.trim();
+  if(!pickedStars){alert('Please select a star rating.');return;}
+  if(!name){alert('Please enter your name.');return;}
+  if(!body){alert('Please write a review.');return;}
+  await sbPost('reviews',{book_id:curBookId,name,rtitle:rtitle||'Review',body,stars:pickedStars});
+  await renderReviews(curBookId);
+  document.getElementById('wr-name').value='';
+  document.getElementById('wr-rtitle').value='';
+  document.getElementById('wr-body').value='';
+  pickedStars=0;updateStarPick();
+  const ok=document.getElementById('wr-ok');ok.style.display='block';
+  setTimeout(()=>ok.style.display='none',4000);
+}
+
+/* ══ ABOUT ══ */
+function renderAbout(){
+  const p=profile;
+  set('about-name',`${p.fname||'Amlan'}<br>${p.lname||'Debnath'}`);
+  set('about-role',p.role||'');
+  const b1=document.getElementById('about-bio1');
+  if(b1) b1.innerHTML=(p.bio1||'').replace(/\*(.*?)\*/g,'<em>$1</em>');
+  set('about-bio2',p.bio2||'');
+  const img=document.getElementById('about-photo-img');
+  const init=document.getElementById('about-init');
+  if(p.photo){img.src=p.photo;img.style.display='block';init.style.display='none';}
+  else{img.style.display='none';init.style.display='block';init.textContent=(p.fname||'A')[0];}
+  const am=document.getElementById('about-amazon-link');if(am)am.href=p.amazon||'#';
+  const ig=document.getElementById('about-ig-link');
+  if(ig){ig.href=p.ig||'#';ig.textContent='@'+(p.ig||'').replace(/.*instagram\.com\//,'').replace(/\//,'');}
+  const adminBtns=document.getElementById('about-admin-btns');
+  if(adminBtns)adminBtns.style.display=isAdmin?'flex':'none';
+}
+
+/* ══ ADMIN ══ */
+function clickAdmin(){
+  document.getElementById('pw-input').value='';
+  document.getElementById('pw-err').textContent='';
+  openOv('pw-overlay');
+}
+function checkPw(){
+  if(document.getElementById('pw-input').value===PASS){
+    isAdmin=true;closeAll();
+    document.querySelectorAll('.admin-only').forEach(el=>el.style.display='');
+    renderBooks();renderAbout();
+  } else {
+    document.getElementById('pw-err').textContent='Incorrect password.';
+    document.getElementById('pw-input').value='';
+  }
+}
+function logout(){
+  isAdmin=false;
+  document.querySelectorAll('.admin-only').forEach(el=>el.style.display='none');
+  renderBooks();renderAbout();
+  const ew=document.getElementById('bd-edit-wrap');if(ew)ew.style.display='none';
+}
+// Secret: tap footer brand 5 times
+let tapC=0,tapT=null;
+document.querySelectorAll('.foot-brand').forEach(el=>{
+  el.addEventListener('click',()=>{
+    tapC++;clearTimeout(tapT);tapT=setTimeout(()=>tapC=0,2000);
+    if(tapC>=5){tapC=0;clearTimeout(tapT);clickAdmin();}
+  });
+});
+
+/* ══ BOOK MODAL ══ */
+function openAdd(){
+  if(!isAdmin)return;
+  editBookId=null;pendingCover=null;
+  set('bk-modal-t','Add New Book');set('bk-modal-s','Fill in the details');
+  clearBkForm();openOv('bk-overlay');
+}
+function openEditId(id){
+  if(!isAdmin)return;
+  editBookId=id;pendingCover=null;
+  const b=allBooks.find(x=>x.id===id);if(!b)return;
+  set('bk-modal-t','Edit Book');set('bk-modal-s',b.title);
+  document.getElementById('bk-num').value=b.num||'';
+  document.getElementById('bk-title').value=b.title||'';
+  document.getElementById('bk-sub-inp').value=b.sub||'';
+  document.getElementById('bk-desc').value=b.description||'';
+  document.getElementById('bk-genre').value=b.genre||'';
+  document.getElementById('bk-year').value=b.year||'';
+  document.getElementById('bk-status').value=b.status||'published';
+  document.getElementById('bk-publisher').value=b.publisher||'';
+  document.getElementById('bk-link').value=b.link||'';
+  if(b.cover){document.getElementById('bk-prev-img').src=b.cover;show('bk-prev');}else hide('bk-prev');
+  openOv('bk-overlay');
+}
+function openEditCurrent(){openEditId(curBookId);}
+function clearBkForm(){
+  ['bk-num','bk-title','bk-sub-inp','bk-desc','bk-genre','bk-year','bk-publisher','bk-link'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  document.getElementById('bk-status').value='published';
+  hide('bk-prev');const f=document.getElementById('bk-file');if(f)f.value='';
+}
+function bkFile(f){if(!f||!f.type.startsWith('image/'))return;readImg(f,d=>{pendingCover=d;document.getElementById('bk-prev-img').src=d;show('bk-prev');});}
+function bkDrop(e){e.preventDefault();bkFile(e.dataTransfer.files[0]);}
+function bkRmCover(){pendingCover='__RM__';hide('bk-prev');}
+
+async function saveBook(){
+  if(!isAdmin)return;
+  const title=document.getElementById('bk-title').value.trim();
+  if(!title){alert('Please enter a title.');return;}
+  const body={
+    num:document.getElementById('bk-num').value.trim(),
+    title,
+    sub:document.getElementById('bk-sub-inp').value.trim(),
+    description:document.getElementById('bk-desc').value.trim(),
+    genre:document.getElementById('bk-genre').value.trim(),
+    year:document.getElementById('bk-year').value.trim(),
+    status:document.getElementById('bk-status').value,
+    publisher:document.getElementById('bk-publisher').value.trim(),
+    link:document.getElementById('bk-link').value.trim(),
+  };
+  if(editBookId){
+    const existing=allBooks.find(b=>b.id===editBookId);
+    body.cover = pendingCover==='__RM__'?null:(pendingCover||existing?.cover||null);
+    await sbPatch('books',editBookId,body);
+  } else {
+    body.cover = (pendingCover&&pendingCover!=='__RM__')?pendingCover:null;
+    body.sort_order = allBooks.length+1;
+    await sbPost('books',body);
+  }
+  allBooks = await sbGet('books','order=sort_order.asc');
+  closeAll();renderBooks();renderHome();
+  if(editBookId&&curBookId===editBookId) openDetail(editBookId);
+}
+
+/* ══ PROFILE MODAL ══ */
+function openProfile(){
+  if(!isAdmin)return;
+  pendingPhoto=null;const p=profile;
+  document.getElementById('pr-fname').value=p.fname||'';
+  document.getElementById('pr-lname').value=p.lname||'';
+  document.getElementById('pr-role').value=p.role||'';
+  document.getElementById('pr-ftag').value=p.ftag||'';
+  document.getElementById('pr-desc').value=p.description||'';
+  document.getElementById('pr-bio1').value=p.bio1||'';
+  document.getElementById('pr-bio2').value=p.bio2||'';
+  document.getElementById('pr-strip-t').value=p.strip_title||'';
+  document.getElementById('pr-strip-b').value=p.strip_body||'';
+  document.getElementById('pr-pq').value=p.pq||'';
+  document.getElementById('pr-pq-attr').value=p.pq_attr||'';
+  document.getElementById('pr-amazon').value=p.amazon||'';
+  document.getElementById('pr-ig').value=p.ig||'';
+  if(p.photo){document.getElementById('pr-prev-img').src=p.photo;show('pr-prev');}else hide('pr-prev');
+  openOv('pr-overlay');
+}
+function prFile(f){if(!f||!f.type.startsWith('image/'))return;readImg(f,d=>{pendingPhoto=d;document.getElementById('pr-prev-img').src=d;show('pr-prev');});}
+function prDrop(e){e.preventDefault();prFile(e.dataTransfer.files[0]);}
+function prRm(){pendingPhoto='__RM__';hide('pr-prev');}
+async function saveProfile(){
+  if(!isAdmin)return;
+  const body={
+    fname:document.getElementById('pr-fname').value.trim()||profile.fname,
+    lname:document.getElementById('pr-lname').value.trim()||profile.lname,
+    role:document.getElementById('pr-role').value.trim(),
+    ftag:document.getElementById('pr-ftag').value.trim(),
+    description:document.getElementById('pr-desc').value.trim(),
+    bio1:document.getElementById('pr-bio1').value.trim(),
+    bio2:document.getElementById('pr-bio2').value.trim(),
+    strip_title:document.getElementById('pr-strip-t').value.trim(),
+    strip_body:document.getElementById('pr-strip-b').value.trim(),
+    pq:document.getElementById('pr-pq').value.trim(),
+    pq_attr:document.getElementById('pr-pq-attr').value.trim(),
+    amazon:document.getElementById('pr-amazon').value.trim(),
+    ig:document.getElementById('pr-ig').value.trim(),
+    photo:pendingPhoto==='__RM__'?null:(pendingPhoto||profile.photo||null),
+    updated_at:new Date().toISOString()
+  };
+  await sbPatch('profile',1,body);
+  profile = {...profile,...body};
+  closeAll();renderHome();renderAbout();
+}
+
+/* ══ DELETE ══ */
+function askDel(id){
+  if(!isAdmin)return;
+  delBookId=id;
+  const b=allBooks.find(x=>x.id===id);
+  set('del-sub',`"${b?b.title:'This book'}" will be permanently removed.`);
+  openOv('del-overlay');
+}
+async function confirmDel(){
+  if(!delBookId||!isAdmin)return;
+  await sbDelete('books',delBookId);
+  allBooks=allBooks.filter(b=>b.id!==delBookId);
+  delBookId=null;closeAll();renderBooks();renderHome();
+}
+
+/* ══ FEEDBACK ══ */
+async function submitFeedback(){
+  const msg=document.getElementById('fb-msg').value.trim();
+  if(!msg){alert('Please write a message.');return;}
+  await sbPost('feedback',{
+    name:document.getElementById('fb-name').value.trim(),
+    email:document.getElementById('fb-email').value.trim(),
+    subject:document.getElementById('fb-subject').value.trim(),
+    message:msg
+  });
+  ['fb-name','fb-email','fb-subject','fb-msg'].forEach(id=>document.getElementById(id).value='');
+  const ok=document.getElementById('fb-ok');ok.style.display='block';
+  setTimeout(()=>ok.style.display='none',5000);
+}
+
+/* ══ HELPERS ══ */
+function openOv(id){document.getElementById(id).classList.add('open');document.body.style.overflow='hidden';}
+function closeAll(){document.querySelectorAll('.overlay').forEach(o=>o.classList.remove('open'));document.body.style.overflow='';}
+function oClick(e,id){if(e.target===document.getElementById(id))closeAll();}
+function show(id){const el=document.getElementById(id);if(el)el.style.display='block';}
+function hide(id){const el=document.getElementById(id);if(el)el.style.display='none';}
+function set(id,html){const el=document.getElementById(id);if(el)el.innerHTML=html;}
+function esc(s){const d=document.createElement('div');d.textContent=s||'';return d.innerHTML;}
+function readImg(f,cb){const r=new FileReader();r.onload=e=>cb(e.target.result);r.readAsDataURL(f);}
+
+/* ══ INIT ══ */
+loadAll();
+</script>
+</body>
+</html>
